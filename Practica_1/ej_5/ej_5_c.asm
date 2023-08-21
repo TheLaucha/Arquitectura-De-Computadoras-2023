@@ -1,27 +1,18 @@
 ; VARIABLES
 ORG 1000h
-A DW 5
-B DW 2
-C DW 3
-D DW ?
-
-; Volver a escribir el programa, pero ahora con una subrutina que reciba A, B y C 
-; por valor a través de los registros AX, BX y CX, calcule AX+BX-CX, 
-; y devuelva el resultado por valor en el registro DX. El programa principal debe
-; llamar a la subrutina y luego guardar el resultado en la memoria con etiqueta D
-
-ORG 3000h
-Calculo: ADD AX, BX
-  SUB AX, CX
-  MOV DX, AX
-RET
+NUM1 DW 5
+NUM2 DW 2
+RES DW ?
 
 ORG 2000h
-MOV AX, A
-MOV BX, B
-MOV CX, C
-CALL Calculo
-MOV D, DX
+MOV RES,0
+MOV AX, NUM1
+MOV BX, NUM2
+loop: DEC BX
+JS sale
+ADD RES, AX
+JMP loop
+sale:  
 hlt
 END
 
