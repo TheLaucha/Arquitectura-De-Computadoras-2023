@@ -1,0 +1,27 @@
+; VARIABLES
+ORG 1000h
+  NUM DB 94h
+  CANT DB 02h
+
+; AH Es el registro que se va a rotar
+ORG 3000h
+ROTARIZQ: MOV AH, [BX] 
+  ADD AH, AH
+  ADC AH, 0
+  MOV [BX], AH
+RET
+
+ROTARIZQ_N: CMP DL, 00h
+  JZ FIN
+  CALL ROTARIZQ
+  DEC DL
+  JMP ROTARIZQ_N
+FIN: RET
+
+ORG 2000h
+  MOV DL, CANT
+  MOV BX, offset NUM
+  CALL ROTARIZQ_N
+HLT
+END
+
