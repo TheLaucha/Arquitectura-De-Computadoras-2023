@@ -1,0 +1,26 @@
+; variables
+ORG 1000h
+  NUM1 DB 6
+  NUM2 DB 4
+  RESULTADO DB ?
+
+; AH = Dividendo
+; AL = Divisor
+; DX = Contador
+ORG 3000h
+RESTO: MOV DX, 00h
+LOOP: SUB AH, AL
+  JS FIN
+  INC DX
+  JMP LOOP
+FIN: NEG AH
+  MOV [BX], AH
+  RET
+
+ORG 2000h
+  MOV AH, NUM1
+  MOV AL, NUM2
+  MOV BX, offset RESULTADO
+  CALL RESTO
+  HLT
+END
