@@ -1,0 +1,14 @@
+; VARIABLES
+ORG 1000h
+  CAR DB 01h
+  
+ORG 2000h
+  MOV BX, Offset CAR
+  MOV AL, 1
+LOOP: INT 7
+  INC CAR
+  CMP CAR, 00h
+  JNZ LOOP
+  INT 0
+END
+
