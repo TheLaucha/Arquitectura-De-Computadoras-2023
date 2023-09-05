@@ -1,0 +1,45 @@
+; variables
+ORG 1000h
+  NUM_1 DB ?
+  NUM_2 DB ?
+  SIGNO DB ?
+  DIG DB ?
+  MSJ DB "ESCRIBA UN DIGITO: "
+  FIN_MSJ DB ?
+    
+ORG 2000h
+  ; Muesta mensaje
+  MOV BX, OFFSET MSJ
+  MOV AL, OFFSET FIN_MSJ - OFFSET MSJ
+  INT 7
+  ; Lee numero
+  MOV BX, OFFSET NUM_1
+  INT 6
+  ; Muestra mensaje
+  MOV BX, OFFSET MSJ
+  MOV AL, OFFSET FIN_MSJ - OFFSET MSJ
+  INT 7
+  ; Lee numero
+  MOV BX, OFFSET NUM_2
+  INT 6
+  ; Realizo resta
+  MOV AL, NUM_1
+  SUB AL, 30h
+  MOV AH, NUM_2
+  SUB AH, 30h
+  CMP AL, AH
+  JS NEGATIVO
+  SUB AL, AH
+  MOV SIGNO, 2Bh ;
+  JMP SIGUE
+NEGATIVO: SUB AH, AL
+  MOV SIGNO, 2Dh
+  MOV AL, AH
+SIGUE: ADD AL, 30h
+  MOV DIG, AL
+  ; Imprimo
+  MOV BX, OFFSET SIGNO
+  MOV AL, 2
+  INT 7
+  INT 0
+END
