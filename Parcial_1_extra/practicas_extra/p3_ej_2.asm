@@ -1,0 +1,48 @@
+TIMER EQU 10h
+EOI EQU 20h
+IMR EQU 21h
+INT1 EQU 25h
+PA EQU 30h
+PB EQU 31h
+CA EQU 32h
+CB EQU 33h
+ID_CLK EQU 10
+
+ORG 40
+IP_CLK DW RUT_CLK
+
+ORG 1000h
+  CONT DB 0
+
+ORG 3000h
+RUT_CLK: PUSH AX
+  INC CONT
+  MOV AL, CONT
+  OUT PB, AL
+  ; Reinicio timer
+  MOV AL, 0
+  OUT TIMER, AL
+  MOV AL, EOI
+  OUT EOI, AL
+  POP AX
+  IRET
+
+ORG 2000h
+  ; Configuro el PIO
+  MOV AL, 00h
+  OUT CB, AL
+  ; Configuro el PIC
+  CLI
+    MOV AL, 0FDh ; 1111 1101
+    OUT IMR, AL
+    MOV AL, ID_CLK
+    OUT INT1, AL
+    ; Configuro el timer
+    MOV AL, 0
+    OUT TIMER, AL
+    MOV AL, 1
+    OUT TIMER+1, AL
+  STI
+  LOOP: JMP LOOP
+  INT 0
+END

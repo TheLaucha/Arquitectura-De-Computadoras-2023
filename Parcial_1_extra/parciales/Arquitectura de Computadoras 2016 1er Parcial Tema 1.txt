@@ -1,0 +1,72 @@
+MOV AL, BYTEx
+MOV DL, OP_xy
+MOV BX, OFFSET BYTEy
+======================
+PUSH AX
+PUSH BX
+PUSH CX
+POP AX
+POP CX
+POP BX
+======================
+ISR = 0 -> Indica que interrupcion esta siendo atendida, en este caso, no esta siendo atendida ninguna interrupcion.
+======================
+Que se transfiere al registro IP y desde donde al ejecutarse una instruccion RET ?
+Se desapila del tope de la pila la direccion de retorno dada al hacer un CALL.
+Luego se salta a la direccion obtenida, es decir, copia la direccion en IP.
+=====================
+Que significa BUSY = 0 ?
+Significa que el buffer NO esta lleno. En caso de estarlo, el FLAG busy quedara en 1.
+=====================
+JZ SEGUIR
+MOV BX, OFFSET CAR
+IN AL, HAND+1
+DEC CL
+=====================
+MAX DB 15
+=====================
+TIMER EQU 10h
+PIC EQU 20h
+PIO EQU 30h
+ID_CLK EQU 10
+
+ORG 40
+IP_CLK DW RUT_CLK
+
+ORG 1000h
+CODIGO DB "DJHOIAOISD"
+FIN DB ?
+
+ORG 3000h
+RUT_CLK: PUSH AX
+MOV AL, [BX]
+OUT PIO+1, AL
+INC BX
+DEC DL
+JNZ FINAL
+MOV AL, 0FFh
+OUT PIC+1, AL
+FINAL: MOV AL, 0
+OUT TIMER, AL
+MOV AL, PIC
+OUT PIC, AL
+POP AX
+IRET
+
+ORG 2000h
+CLI
+  MOV AL, 0FDh ; 1111 1101
+  OUT PIC+1, AL
+  MOV AL, ID_CLK
+  OUT PIC+5, AL
+  MOV AL, 1
+  OUT TIMER+1, AL
+  MOV AL, 00h
+  OUT PIO+3, AL
+  OUT TIMER, AL
+  MOV BX, OFFSET CODIGO
+  MOV DL, OFFSET FIN - OFFSET CODIGO
+STI
+LOOP: JMP LOOP
+INT 0
+END

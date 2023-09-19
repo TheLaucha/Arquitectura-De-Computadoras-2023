@@ -1,0 +1,36 @@
+PA EQU 30h
+PB EQU 31h
+CA EQU 32h
+CB EQU 33h
+
+ORG 1000h
+  MSJ DB "HOLA MUNDO"
+  FIN_MSJ DB ?
+ORG 3000h
+
+ORG 2000h
+  MOV BX, offset MSJ 
+  MOV DX, OFFSET FIN_MSJ - OFFSET MSJ
+  MOV AL, 0FDh ; 1111 1101
+  OUT CA, AL
+  MOV AL, 0
+  OUT CB, AL
+POLL: IN AL, PA
+  AND AL, 1
+  JNZ POLL
+  MOV AL, [BX]
+  OUT PB, AL
+  ; Strobe en 1
+  IN AL, PA
+  OR AL, 2
+  OUT PA, AL
+  ; Strobe en 0
+  IN AL, PA
+  AND AL, 0FDh
+  OUT PA, AL
+  ;
+  INC BX
+  DEC DX
+  JNZ POLL
+  INT 0
+END

@@ -1,0 +1,40 @@
+PA EQU 30h
+PB EQU 31h
+CA EQU 32h
+CB EQU 33h
+
+ORG 1000h
+  MSJ DB "INGRESE 5 CARACTERES"
+  FIN_MSJ DB ?
+  CAR DB ?
+
+ORG 2000h
+  ; Configuro PIO
+  MOV AL, 0FDh ; 1111 1101
+  OUT CA, AL
+  MOV AL, 00h
+  OUT CB, AL
+  ; Muestro Mensaje
+  MOV BX, OFFSET MSJ
+  MOV AL, OFFSET FIN_MSJ - OFFSET MSJ
+  INT 7
+  MOV DL, 5
+  MOV BX, OFFSET CAR
+LOOP: INT 6
+POLL: IN AL, PA
+  AND AL, 1
+  JNZ POLL
+  MOV AL, CAR
+  OUT PB, AL
+  ; Strobe en 1
+  IN AL, PA
+  OR AL, 2
+  OUT PA, AL
+  ; Strobe en 0
+  IN AL, PA
+  AND AL, 0FDh
+  OUT PA, AL
+  DEC DL
+  JNZ LOOP
+  INT 0
+END

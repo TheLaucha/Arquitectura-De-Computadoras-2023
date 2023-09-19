@@ -1,0 +1,29 @@
+DATO EQU 40h
+ESTADO EQU 41h
+
+ORG 1000h
+  MSJ DB "HOLA MUNDO"
+  FIN_MSJ DB ?
+  
+ORG 3000h
+
+ORG 2000h
+  ; Configuro Handshake en polling
+  IN AL, ESTADO
+  AND AL, 7Fh ; 0111 1111
+  OUT ESTADO, AL
+  ; Configuro programa
+  MOV BX, OFFSET MSJ
+  MOV DL, OFFSET FIN_MSJ - OFFSET MSJ
+  ; Consulto si esta libre
+POLL: IN AL, ESTADO
+  AND AL, 1
+  JNZ POLL
+  MOV AL, [BX]
+  OUT DATO, AL
+  INC BX
+  DEC DL
+  JNZ POLL
+LOOP: JMP LOOP
+  INT 0
+END

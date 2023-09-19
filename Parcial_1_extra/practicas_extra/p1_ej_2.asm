@@ -1,0 +1,35 @@
+ORG 1000h
+  NUM_1 DW 5
+  NUM_2 DW 2
+  RES DW ?
+
+ORG 3000h
+MUL: MOV BX, SP
+  ADD BX, 6
+  MOV AX, [BX] ; Num_1
+  SUB BX, 2
+  MOV CX, [BX] ; Num_2
+  MOV DX, 0
+  CMP AX, 0
+  JZ FIN
+LOOP: CMP CX, 0
+  JZ FIN
+  ADD DX, AX
+  DEC CX
+  JMP LOOP
+FIN: SUB BX, 2
+  MOV AX, [BX]
+  MOV BX, AX
+  MOV [BX], DX
+  RET
+
+ORG 2000h
+  MOV AX, NUM_1
+  PUSH AX
+  MOV AX, NUM_2
+  PUSH AX
+  MOV AX, OFFSET RES
+  PUSH AX
+  CALL MUL
+  INT 0
+END

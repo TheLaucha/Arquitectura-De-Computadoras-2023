@@ -1,0 +1,25 @@
+ORG 1000h
+  NUM_1_A DW 3000h
+  NUM_1_B DW 5000h
+  NUM_2_A DW 2000h
+  NUM_2_B DW 1000h
+  RES_A DW ?
+  RES_B DW ?
+
+ORG 3000h
+SUM32: MOV DX, [BX] ; Num_1_A
+  ADD BX, 4
+  ADD DX, [BX] ; Num_2_A
+  SUB BX, 2
+  MOV CX, [BX] ; Num_1_B
+  ADD BX, 4
+  ADD CX, [BX] ; Num_2_B
+  RET
+
+ORG 2000h
+  MOV BX, OFFSET NUM_1_A
+  CALL SUM32
+  MOV RES_A, DX
+  MOV RES_B, CX
+  INT 0
+END
