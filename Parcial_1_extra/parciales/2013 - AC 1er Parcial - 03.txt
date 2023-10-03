@@ -1,0 +1,19 @@
+1 ===
+0F5h -> 1111 0101 -> Se habilita DMA y Timer
+2 ===
+3 ===
+Se almacena la direccion de retorno
+4 ===
+CLI -> Desactiva las interrupciones por hardware, permitiendo configurarlas
+STI -> Vuelve a activar las interrupciones por hardware
+5 ===
+Por consulta de estado
+6 ===
+PUSH CX
+PUSH BX
+POP CX
+POP BX
+7 ===
+Referencia
+Valor
+Valor

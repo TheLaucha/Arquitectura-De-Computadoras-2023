@@ -1,0 +1,10 @@
+2 ====
+PUSH CX
+PUSH BX
+POP CX
+POP BX
+3 ===
+Cada vez que la CPU escriba sobre el registro de DATO, el handshake se encargará de poner en 1 el strobe para que el carácter se imprima automáticamente, siempre y cuando la impresora este libre.
+4 ===
+5 ===
+6 ===

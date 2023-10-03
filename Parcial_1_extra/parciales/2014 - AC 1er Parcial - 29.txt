@@ -1,0 +1,31 @@
+1 ===
+7FFCh -> CL
+7FFDh -> CH
+7FFEh -> DirL
+7FFFh -> DirH
+8000h
+
+CX -> AX -> 7F00h
+AX -> BX -> 0F34h
+
+SP -> 7FFCh
+
+AX -> 7F00h
+BX -> 0F34h
+CX -> 7F00h
+
+RET
+
+5 ===
+DATOS DB ?
+
+MOV BX, OFFSET DATOS
+MOV DL, 5
+OTRO: INT 6
+ INC BX
+ DEC DL
+ JNZ OTRO
+
+6 ===
+IMR -> F0h -> 1111 0000
+ISR -> 05h -> 0000 0101

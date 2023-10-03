@@ -1,0 +1,68 @@
+1 ===
+Valor
+Referencia
+Valor
+2 ===
+CX -> 3000h
+AX -> 1000h
+BX -> 1000h
+3 ===
+Si esta configurado por interrupcion, se produce una interrupcion siempre que la impresora este libre.
+4 ===
+El handshake por consulta de estado, lo que hace es consultar constantemente si la impresora esta libre.
+En caso de estarlo, se le envia el el dato deseado al puerto de DATO (40h)
+El handshake maneja el strobe automaticamente, y imprime el dato enviado.
+6 ===
+ORG 600
+MOV AL, 0FDh
+MOV AL, 150
+120
+STI
+7 === 
+ORG 1000h
+  MSJ DB "PRESIONE LA TECLA: "
+  PEDIR DB "0"
+  FIN1 DB ?
+  MSJ_CORRECTO DB "CORRECTO"
+  MSJ_INCORRECTO DB "ERROR, VUELVA A INTENTARLO"
+  FIN_MSJ_INCORRECTO DB ?
+  RESUL DB ?
+  TECLA DB ?
+
+ORG 2500
+VERIFICA: MOV AL, [BX]
+  CMP AL, PEDIR
+  JZ ES_CORRECTO
+  MOV AL, 0FFh
+  MOV RESUL, AL
+  JMP FIN
+ES_CORRECTO: MOV AL, 00h
+  MOV RESUL, AL
+FIN: RET
+
+ORG 3000h
+MUESTRA: CMP AL, 0FFh
+  JNZ ES_OK
+  MOV BX, OFFSET MSJ_INCORRECTO
+  MOV AL, OFFSET FIN_MSJ_INCORRECTO - OFFSET MSJ_INCORRECTO
+  INT 7
+  JMP TERMINO
+ES_OK: MOV BX, OFFSET MSJ_CORRECTO
+  MOV AL, OFFSET MSJ_INCORRECTO - OFFSET MSJ_CORRECTO
+  INT 7
+TERMINO: RET
+  
+
+ORG 2000H
+  MOV BX, OFFSET MSJ
+  MOV AL, OFFSET PEDIR - OFFSET MSJ
+  INT 7
+  MOV BX, OFFSET PEDIR
+  MOV AL, 1
+  INT 7
+  MOV BX, OFFSET TECLA
+  INT 6
+  CALL VERIFICA
+  CALL MUESTRA
+  INT 0
+END

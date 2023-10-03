@@ -1,0 +1,43 @@
+1 ===
+MOV AL, byteX
+MOV CX, op_XY
+MOV DX, OFFSET byteY
+2 ===
+PUSH AX
+PUSH BX
+PUSH CX
+POP AX
+POP CX
+POP BX
+3 ===
+Desde la pila se transfiere la direccion de retorno.
+4 ===
+IRR -> Indica las interrupciones pendientes
+ISR -> Indica que interrupcion esta siendo atendida en un instante dado
+5 ===
+Significa que el buffer de la impresora no esta lleno.
+6 ===
+JZ Seguir
+MOV BX, OFFSET CAR
+IN AL, HAND + 1
+DEC CL
+8 ===
+IMR -> 0F5h -> 1111 0101 -> Usart y Timer
+9 ===
+Se almacena la direccion de retorno
+10 ===
+
+19 ===
+27*4 -> 108 -> 
+3500h
+
+20 ===
+0FDh -> 1111 1101
+2800h -> Direccion de int
+MOV AL, 10
+OUT COMP, AL
+MOV AL, 0
+OUT CONT, AL
+OR AL, 80h
+
+22 ===

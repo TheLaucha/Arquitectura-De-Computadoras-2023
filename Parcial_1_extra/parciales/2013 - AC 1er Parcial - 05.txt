@@ -1,0 +1,30 @@
+1 ===
+Valor
+Referencia
+Referencia
+2 ===
+PUSH AX
+POP AX
+3 ===
+C
+4 ===
+C
+5 ===
+RET
+6 ===
+ORG 27*4 => 108 
+3500h
+PIC:
+- IMR -> 0FBh -> 1111 1011
+- INT2 -> 27
+7 ===
+MOV AL, 0F9h  -> 1111 1001
+OUT IMR, AL
+-
+OR AL, 80h
+-
+A -> 0F9h
+B -> B
+C -> B
+D -> OR AL, 80h
+E -> 44

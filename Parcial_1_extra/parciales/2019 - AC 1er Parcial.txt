@@ -1,0 +1,22 @@
+1 ===
+PUSH AX
+PUSH BX
+POP AX
+POP BX
+2 ===
+IMR -> CBh -> 1100 1011 -> La int handhskae esta activada
+3 ===
+SP -> 7FF9h -> IRET -> 7FFBh
+4 ===
+Se debe enviar al puerto PB, el dato a imprimir.
+Se debe enviar un pulso de STROBE al puerto de control.
+5 ===
+OUT CB, AL
+INT 6
+MOV BX, OFFSET MSJ_ERROR
+MOV AL, CH
+OUT PB, AL
+6 ===
+IN AL, HAND_ESTADO
+OR AL, 80h
+OUT HAND_ESTADO, AL

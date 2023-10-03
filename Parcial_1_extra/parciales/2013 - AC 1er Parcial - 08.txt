@@ -1,0 +1,23 @@
+1 ===
+IMR -> 0F5h -> 1111 0101 -> USART y Timer
+2 ===
+3 ===
+Se almacena la direccion de retorno
+4 ===
+CLI -> Deshabilita las interrupciones, para poder configurarlas
+STI -> Vuelve a habilitar las interrupciones
+5 ===
+Modo de comunicion por consulta de estado
+6 ===
+PUSH BX
+PUSH CX
+POP BX
+POP CX
+7 ===
+Referencia
+Valor
+Valor
+8 ===
+Va a enceder las luces 0-1-2-3-4-5-6-7, cuando llegue a la 7 va a comparar y al tener signo va a terminar.
+9 ===
+Solo va a encender la primer luz y luego el programa va a terminar.

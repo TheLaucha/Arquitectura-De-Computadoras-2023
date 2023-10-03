@@ -1,0 +1,101 @@
+1 ===
+Lo que se hace es mover el valor de una variable a un registro, por lo tanto si en la subrutina se modifica el valor de este registro, el valor que se encuentra en la varaible no se ve afecatado.
+2 ===
+INT0 -> F10 -> 24h
+INT2 -> Hand -> 26h
+3 ===
+MOV BX, OFFSET TABLA
+PUSH BX
+4 ===
+OUT PB, AL
+IN AL, PA
+OR AL, 2
+OUT PA, AL
+IN AL, PA
+AND PA, 0FDh ; 1111 1101
+OUT PA, AL
+5 ===
+Correcta
+Incorrecta
+Correcta
+Incorrecta
+6 ===
+IMR -> Es la mascara de interrupciones que guarda las interrupciones que estan habilitadas.
+IRR -> Indica las interrupciones pendientes.
+7 ===
+El handshake tiene el modo de operacion por consulta de estado o por interrupcion.
+Hay que configurar el bit 7 en 1 si es por interrupcion o en 0 si es por consulta.
+Si es por consulta de estado, hay que consultar constantemente si la impresora esta libre, y en caso de estarlo, enviar el caracter a imprimir al puerto de dato.
+Si es por interrupcion, la impresora siempre que este libre iniciara la interrupcion. 
+8 ===
+BX -> Indica la direccion de memoria desde donde se va a empezar a imprimir
+AL -> Indica la cantidad de caracteres que va a imprimir.
+9 ===
+TIMER EQU 10h
+EOI EQU 20h
+IMR EQU 21h
+INT1 EQU 25h
+ID_TIMER EQU 10
+PA EQU 30h
+PB EQU 31h
+CA EQU 32h
+CB EQU 33h
+
+ORG 40
+IP_TIMER DW RUT_TIMER
+
+ORG 3000h
+RUT_TIMER: PUSH BX
+  PUSH AX
+  INT 7 
+  MOV BX, OFFSET DATO
+  INT 6
+  MOV AL, DATO
+  OUT PA, AL
+  MOV DH, AL
+  CALL ANALIZAR
+  MOV AL, 0
+  OUT TIMER, AL
+  MOV AL, EOI
+  OUT EOI, AL
+  POP AX
+  POP BX
+  IRET
+
+ANALIZAR: CMP DH, 100
+  JS ES_MENOR
+  CMP DH, 150
+  JNS ES_MAYOR
+  JMP TERMINO
+ES_MENOR: MOV AL, 1
+  OUT PB, AL
+  JMP TERMINO
+ES_MAYOR: MOV AL, 2
+  OUT PB, AL
+TERMINO: RET
+  
+
+ORG 1000h
+  MSJ DB "INGRESE UN CARACTER: "
+  DATO DB ?
+
+ORG 2000h
+  MOV AL, 0FFh
+  OUT CA, AL
+  MOV AL, 00h
+  OUT CB, AL
+  CLI
+    MOV AL, 0FDh ; 1111 1101
+    OUT IMR, AL
+    MOV AL, ID_TIMER
+    OUT INT1, AL
+    MOV AL, 20
+    OUT TIMER+1,AL
+    MOV AL, 0
+    OUT TIMER, AL
+    MOV BX, OFFSET MSJ
+    MOV AL, OFFSET DATO - OFFSET MSJ
+  STI
+LOOP: JMP LOOP
+  INT 0
+END
