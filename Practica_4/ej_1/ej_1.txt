@@ -1,0 +1,5 @@
+A -> dadd r1, r2, r0 -> MOV r1, r2
+B -> daddi r3, r0, 5 -> MOV r3, 5
+C -> dsub r4, r4, r4 -> SUB r4, r4
+D -> daddi r5, r5, -1 -> SUB r5, -1
+XORI -> r6, r6, 0xffff -> XOR r6, 0FFh
