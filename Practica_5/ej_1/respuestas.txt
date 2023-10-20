@@ -1,0 +1,17 @@
+a) Tomar nota de la cantidad de ciclos, instrucciones y CPI luego de la ejecución del programa. 
+16 ciclos
+7 instrucciones
+2868 CPI
+4 Atascos RAW
+2 Atascos estructurales
+b) ¿Cuántos atascos por dependencia de datos se generan? Observar en cada caso cuál es el dato en conflicto y las
+instrucciones involucradas. 
+Instrucciones involucradas: 3, 5 y 6
+c) ¿Por qué se producen los atascos estructurales? Observar cuales son las instrucciones que los generan y en qué
+etapas del pipeline aparecen. 
+Aparecen en la etapa de MEM del pipeline, se producen porque dos instrucciones intetan acceder simultaneamente a la etapa de MEM, pero solo puede acceder una y tiene prioridad la primera que entra en el cauce.
+d) Modificar el programa agregando la instrucción mul.d f1, f2, f1 entre las instrucciones add.d y mul.d.
+Repetir la ejecución y observar los resultados. ¿Por qué aparece un atasco tipo WAR? 
+Aparece un atasco de tipo WAR porque se tiene que escribir en f1 cuando todavia no se termino de leer.
+e) Explicar por qué colocando un NOP antes de la suma, se soluciona el RAW de la instrucción ADD y como
+consecuencia se elimina el WAR.
