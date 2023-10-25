@@ -1,0 +1,37 @@
+.data
+  valor1: .word 16
+  valor2: .word 4
+  result: .word 0
+
+.text
+  ld $a0, valor1($zero)
+  ld $a1, valor2($zero)
+  jal a_la_potencia
+  sd $v0, result($zero)
+  halt
+
+  a_la_potencia: daddi $v0, $zero, 1
+  lazo: slt $t1, $a1, $zero
+  bnez $t1, terminar
+  daddi $a1, $a1, -1
+  dmul $v0, $v0, $a0
+  j lazo
+  terminar: jr $ra 
+
+
+
+a) ¿Qué hace el programa? ¿Cómo está estructurado el código del mismo?
+El programa calcula la potencia de un numero.
+
+b) ¿Qué acciones produce la instrucción jal? ¿Y la instrucción jr?
+JAL llama a la subrutina y JR retorna de esa subrutina.
+
+c) ¿Qué valor se almacena en el registro $ra? ¿Qué función cumplen los registros $a0 y $a1? ¿Y el registro $v0?
+En el registro $RA se almacena la direccion de retorno.
+$a0 y $a1 son los argumentos que se van a pasar a la subrutina a_la_potencia
+$v0 es el valor que va a retornar la subrutina
+
+d) ¿Qué sucedería si la subrutina a_la_potencia necesitara invocar a otra subrutina para realizar la multiplicación,
+por ejemplo, en lugar de usar la instrucción dmul? ¿Cómo sabría cada una de las subrutinas a que dirección de
+memoria deben retornar?
+Lo que hay que hacer en ese caso es guardar la direccion de retorno en la pila, que previamente tuve que haber inicializado de forma manual.

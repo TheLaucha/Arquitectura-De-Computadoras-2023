@@ -1,1 +1,1 @@
-F:\UNLP\07-Sexto Semestre\Arquitectura\Practica_5\ej_4\ej_4.s
+F:\UNLP\07-Sexto Semestre\Arquitectura\Parcial_2_extra\parciales\parcial.s
