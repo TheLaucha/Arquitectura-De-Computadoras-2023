@@ -1,0 +1,8 @@
+1) 21 Instrucciones , 33 ciclos, 1.571 PCI, 6 raw, 2 BTS
+2) 6 Raw, 2 Bts, 2 Missprediction
+3) Si cambia, aumenta.
+4) Cambio la instruccion: DADDI r1, r1, 8 y la pongo debajo del salto
+5) mtc1 r5, f1 -> cvt.d.l f2, f1
+6) DADDI $t0, $0, 9 -> SD $t0, 0($s6) -> LBU $t3, 0($s7)
+7) DADDI $t4, $0, 0 -> BC1T FUERA -> DADDI $t4, $t4, 8
+8) Hecho

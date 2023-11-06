@@ -1,3 +1,15 @@
 1 -> C
-2 -> C
+2 -> C -> Consultar esto
 3 -> 4
+4 -> B
+5 -> EX
+6 -> Completo el programa
+7 -> 4
+8 -> C
+9 -> X, X, X, OK
+10 -> B
+11 -> 1.8 CPI
+12 -> C -> A checkear
+13 -> ID
+14 -> Realizado
+
