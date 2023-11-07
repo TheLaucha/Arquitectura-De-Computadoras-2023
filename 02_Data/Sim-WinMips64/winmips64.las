@@ -1,1 +1,1 @@
-F:\UNLP\07-Sexto Semestre\Arquitectura\Practica_6\ej_6\ej_6.s
+F:\UNLP\07-Sexto Semestre\Arquitectura\Parcial_2_extra\parciales\2017 - AC Preguntas 2do Parcial - 12.s
