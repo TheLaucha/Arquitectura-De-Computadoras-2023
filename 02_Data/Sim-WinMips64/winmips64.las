@@ -1,1 +1,1 @@
-F:\UNLP\07-Sexto Semestre\Arquitectura\Parcial_2_extra\parciales\2017 - AC Preguntas 2do Parcial - 12.s
+C:\Users\lespinillo\Desktop\Arquitectura-De-Computadoras-2023\Parcial_2_extra\parciales\Parcial 2 F1 Arq2022.s

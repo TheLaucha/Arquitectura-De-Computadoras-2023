@@ -1,0 +1,6 @@
+1) 9 Ciclos, 4 Instrucciones, CPI 2,25
+2) Hecho
+3) Hecho
+4) Hecho
+5) Hecho
+6) Falta por hacer
