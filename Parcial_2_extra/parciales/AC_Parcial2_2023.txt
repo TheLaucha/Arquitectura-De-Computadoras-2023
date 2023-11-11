@@ -1,0 +1,20 @@
+1) 12 ciclos
+2) 10 ciclos
+3) Los atascos estructurales se produciones cuando dos o mas instrucciones intentan acceder a un mismo recurso de hardware. Por ejemplo cuando dos instrucciones intentan acceder al recurso ID, se producira un atasco estructural. La instruccion que primero ingreso al cause tiene prioridad.
+4) El delay slot consiste en ejecutar siempre la siguiente instruccion a un salto, por lo que re-ordenando las intrucciones que no dependen del salto se aprovecha sin tener atascos.
+5) DADDI R1, R1, 8
+6) Los atascos por dependencia de datos se producen cuando dos instruccions se comunican por medio de un dato que no esta disponible cuando se necesita en una etapa determianda.
+Estos atascos pueden ser de tipo:
+- RAW: Lectura despues de escritrua -> Una instruccion intenta leer un dato que todavia esta pendiente de escritura.
+- WAW: Escritura despues de escritura -> Una instruccion sobrepasa a una anterior queriendo escribir un registro que esta pendiente de escritura
+- WAR: Escritura despues de lectura -> Una instruccion sobrepasa a una anterior queriendo escribir un registro pendiente de lecutra.
+7)
+A -> WB
+B -> MEM
+C -> EX
+D -> EX
+8)
+LD $t0, NUMERO($0)
+SD $t0, 0($s7)
+DADDI $t1, $0, 1
+SD $t1, 0($s6)

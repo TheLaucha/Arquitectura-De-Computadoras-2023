@@ -1,1 +1,1 @@
-F:\UNLP\07-Sexto Semestre\Arquitectura\Parcial_2_extra\parciales\2017 - AC Preguntas 2do Parcial - 12.s
+F:\UNLP\07-Sexto Semestre\Arquitectura\Parcial_2_extra\parciales\Arqui 2do Parcial Tema 4.s
